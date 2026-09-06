@@ -1,7 +1,11 @@
+import os
 import discord
 from discord import app_commands
 
-TOKEN = "COLOQUE_SEU_TOKEN_AQUI"
+TOKEN = os.getenv("TOKEN")
+
+if not TOKEN:
+    raise RuntimeError("A variável TOKEN não foi encontrada no Render.")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -19,7 +23,10 @@ class IronSoulsBot(discord.Client):
 
 bot = IronSoulsBot()
 
-@bot.tree.command(name="teste", description="Testa se o Iron Souls Herói Bot está funcionando.")
+@bot.tree.command(
+    name="teste",
+    description="Testa se o Iron Souls Herói Bot está funcionando."
+)
 async def teste(interaction: discord.Interaction):
     await interaction.response.send_message(
         "⚔️ **Iron Souls Herói Bot está online!** ⭐"
